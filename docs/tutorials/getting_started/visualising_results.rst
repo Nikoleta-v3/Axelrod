@@ -66,10 +66,11 @@ Passing various objects to plot
 The library give access to underlying matplotlib axes objects of each plot, thus
 the user can easily modify various aspects of a plot::
 
-    >>> ax = plt.subplot()
-    >>> ax.set_title('Payoff')
-    >>> ax.set_xlabel('Strategies')
-    >>> p.boxplot(ax=ax)
+    >>> import matplotlib.pyplot as plt
+    >>> _, ax = plt.subplots()
+    >>> title = ax.set_title('Payoff')
+    >>> xlabel = ax.set_xlabel('Strategies')
+    >>> p = plot.boxplot(ax=ax)
     >>> p.show()
 
 .. image:: _static/visualising_results/title_labels_payoff.png

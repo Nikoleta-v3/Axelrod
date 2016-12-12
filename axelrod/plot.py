@@ -173,7 +173,7 @@ class Plot(object):
         width = max(self.nplayers / 4, 12)
         height = width
         figure.set_size_inches(width, height)
-        cmap = "viridis"
+        cmap = default_cmap()
         mat = ax.matshow(data, cmap=cmap)
         plt.xticks(range(self.result_set.nplayers))
         plt.yticks(range(self.result_set.nplayers))
