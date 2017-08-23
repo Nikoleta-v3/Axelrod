@@ -553,7 +553,7 @@ class TransitiveFingerprint(object):
 
             divider = make_axes_locatable(ax)
             cax = divider.append_axes("right", size="5%", pad=0.2)
-            cax.tick_params(labelsize=40)
             cbar = fig.colorbar(mat, cax=cax, ticks=ticks)
 
+        plt.tight_layout()
         return fig
