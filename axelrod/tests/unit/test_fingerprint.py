@@ -4,6 +4,7 @@ from tempfile import mkstemp
 from unittest.mock import patch
 
 import numpy as np
+import matplotlib.pyplot
 from hypothesis import given, settings
 
 import axelrod as axl
@@ -11,14 +12,6 @@ from axelrod.fingerprint import (create_points, create_jossann, create_probes,
                                  create_edges, generate_data, reshape_data,
                                  AshlockFingerprint, Point, TransitiveFingerprint)
 from axelrod.tests.property import strategy_lists
-
-
-matplotlib_installed = True
-try:
-    import matplotlib.pyplot
-except ImportError:  # pragma: no cover
-    matplotlib_installed = False
-
 
 C, D = axl.Action.C, axl.Action.D
 
@@ -473,3 +466,24 @@ class TestTransitiveFingerprint(unittest.TestCase):
                                   [1 / 2, 1, 1 / 2],
                                   [0, 0, 0]])
         self.assertTrue(np.array_equal(data, expected_data))
+
+    def test_plot(self):
+        """
+        Test that plot is created with various arguments.
+        """
+        tf = TransitiveFingerprint(axl.TitForTat)
+        tf.fingerprint(turns=10, repetitions=2, progress_bar=False)
+        p = tf.plot()
+        self.assertIsInstance(p, matplotlib.pyplot.Figure)
+        p = tf.plot(cmap="jet")
+        self.assertIsInstance(p, matplotlib.pyplot.Figure)
+        p = tf.plot(interpolation='bicubic')
+        self.assertIsInstance(p, matplotlib.pyplot.Figure)
+        p = tf.plot(title="Title")
+        self.assertIsInstance(p, matplotlib.pyplot.Figure)
+        p = tf.plot(colorbar=False)
+        self.assertIsInstance(p, matplotlib.pyplot.Figure)
+        p = tf.plot(labels=False)
+        self.assertIsInstance(p, matplotlib.pyplot.Figure)
+        p = tf.plot(display_names=True)
+        self.assertIsInstance(p, matplotlib.pyplot.Figure)
